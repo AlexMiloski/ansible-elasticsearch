@@ -8,12 +8,13 @@
     - "{{pid_dir}}"
     - "{{log_dir}}"
     - "{{conf_dir}}"
+    - "{{tmp_dir}}"
 
 - name: Create Data Directories
   file: path={{ item }} state=directory owner={{ es_user }} group={{ es_group }}
   with_items:
+    - "{{es_data_dirs}}"
     - "{{data_dirs}}"
-
 
 #Copy the config template
 - name: Copy Configuration File

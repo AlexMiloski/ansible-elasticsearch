@@ -18,6 +18,7 @@ es_group: elasticsearch
 es_config: {}
 #Need to provide default directories
 es_pid_dir: "/var/run/elasticsearch"
+es_tmp_dir: "/var/lib/elasticsearch/tmp"
 es_data_dirs: "/var/lib/elasticsearch"
 es_log_dir: "/var/log/elasticsearch"
 es_max_open_files: 65536

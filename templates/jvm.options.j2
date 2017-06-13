@@ -67,6 +67,9 @@
 # use our provided JNA always versus the system one
 -Djna.nosys=true
 
+# use a custom tmp folder for JNA as some systems don't allow exec on tmp
+-Djna.tmpdir={{tmp_dir}}
+
 # flags to keep Netty from being unsafe
 -Dio.netty.noUnsafe=true
 -Dio.netty.noKeySetOptimization=true

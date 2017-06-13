@@ -1,0 +1,39 @@
+---
+#Add the elasticsearch user before installing from packages.
+- name: Ensure elasticsearch group is created
+  group:
+    state: present
+    name: "{{ es_group }}"
+    system: yes
+  when: es_group_id is not defined
+
+- name: Ensure elasticsearch group is created with the correct id.
+  group:
+    state: present
+    name: "{{ es_group }}"
+    system: yes
+    gid: "{{ es_group_id }}"
+  when: es_group_id is defined
+
+- name: Ensure elasticsearch user is created
+  user:
+    state: present
+    name: "{{ es_user }}"
+    comment: elasticsearch system user
+    system: yes
+    createhome: no
+    home: "{{ es_data_dirs }}" #WORKAROUND: https://github.com/elastic/elasticsearch/issues/18272
+    group: "{{ es_group }}"
+  when: es_user_id is not defined
+
+- name: Ensure elasticsearch user is created with the correct id.
+  user:
+    state: present
+    name: "{{ es_user }}"
+    comment: elasticsearch system user
+    system: yes
+    createhome: no
+    home: "{{ es_data_dirs }}" #WORKAROUND: https://github.com/elastic/elasticsearch/issues/18272
+    uid: "{{ es_user_id }}"
+    group: "{{ es_group }}"
+  when: es_user_id is defined
