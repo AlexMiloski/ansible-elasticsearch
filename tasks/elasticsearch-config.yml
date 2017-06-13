@@ -6,9 +6,12 @@
   file: path={{ item }} state=directory owner={{ es_user }} group={{ es_group }}
   with_items:
     - "{{pid_dir}}"
-    - "{{log_dir}}"
     - "{{conf_dir}}"
     - "{{tmp_dir}}"
+
+- name: Create Log Directory
+  file: path={{ log_dir }} state=directory owner={{ es_user }} group={{ es_group }}
+  when: es_log_file
 
 - name: Create Data Directories
   file: path={{ item }} state=directory owner={{ es_user }} group={{ es_group }}
