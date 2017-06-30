@@ -1,6 +1,12 @@
 ---
 - name: RedHat - install yum-version-lock
-  yum: name=yum-plugin-versionlock state=present update_cache=yes
+  yum: name=yum-plugin-versionlock state=present
+
+- name: Check if elasticsearch is locked
+  shell: yum versionlock | grep -P "0:elasticsearch-{{es_version}}"
+  changed_when: false
+  register: locked
+
 - name: RedHat - lock elasticsearch version
   shell: yum versionlock delete 0:elasticsearch* ; yum versionlock add elasticsearch{% if es_version is defined and es_version != "" %}-{{ es_version }}{% endif %}
-
+  when: locked.rc != 0
