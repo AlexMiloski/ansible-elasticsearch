@@ -5,6 +5,7 @@
 - name: Check if elasticsearch is locked
   shell: yum versionlock | grep -P "0:elasticsearch-{{es_version}}"
   changed_when: false
+  failed_when: false
   register: locked
 
 - name: RedHat - lock elasticsearch version
